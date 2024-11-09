@@ -9,12 +9,12 @@ from ipywidgets import interact, widgets
 from matplotlib.lines import lineStyles
 from sympy.printing.pretty.pretty_symbology import line_width
 
-# Veriyi içe aktarma
+
 data = pd.read_excel('data/verilerim.xlsx')
 print(data.head())
 print(data.info())
 
-#eksik verileri temizleme
+
 
 missing_data = data.isnull().sum()
 print("Eksik Veri Sayısı:")
