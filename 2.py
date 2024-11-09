@@ -2,13 +2,13 @@ import streamlit as st
 import pandas as pd
 import plotly.express as px
 
-# Veriyi yükle
+
 df = pd.read_excel('/Users/melekhayta/Desktop/potansiyel_musteri_hesaplama/data/verilerim.xlsx')
 
-# Başlık
+
 st.title('Gelir Dashboard\'u')
 
-# Başlık altı açıklama
+
 st.markdown("""
     **Bu dashboard**, gelir analizlerini ve kategorilere göre gelir dağılımını görselleştiren, 
     aynı zamanda zaman içindeki değişimi gözler önüne seren interaktif bir platformdur.
@@ -36,7 +36,7 @@ with col1:
     )
     st.plotly_chart(fig_gelir_kategori, use_container_width=True)
 
-# 2. Kolon: Zaman Serisi Gelir Değişimi
+
 with col2:
     df['InvoiceDate'] = pd.to_datetime(df['InvoiceDate'])
     gelir_by_tarih = df.groupby(df['InvoiceDate'].dt.to_period('M'))['UnitPrice'].sum()
@@ -54,7 +54,7 @@ with col2:
     )
     st.plotly_chart(fig_zaman_serisi, use_container_width=True)
 
-# Widgetlar
+
 st.write("### Gelir Kategorisi Seçimi")
 kategori_sec = st.selectbox(
     'Bir kategori seçin:',
@@ -77,7 +77,7 @@ fig_kategori_gelir.update_layout(
 )
 st.plotly_chart(fig_kategori_gelir, use_container_width=True)
 
-# Slider ile Gelir Değeri
+
 st.write("### Gelir Değeri Seçimi")
 gelir_slider = st.slider(
     'Gelir Değer Aralığını Seçin:',
@@ -86,7 +86,7 @@ gelir_slider = st.slider(
     value=(int(df['UnitPrice'].min()), int(df['UnitPrice'].max()))
 )
 
-# Slider ile belirlenen aralıkta veriyi filtreleyip gösterme
+
 filtered_data = df[(df['UnitPrice'] >= gelir_slider[0]) & (df['UnitPrice'] <= gelir_slider[1])]
 st.write(f"Seçilen Gelir Aralığı: {gelir_slider[0]} - {gelir_slider[1]}")
 
@@ -106,7 +106,7 @@ fig_gelir_kategori_filtered.update_layout(
 )
 st.plotly_chart(fig_gelir_kategori_filtered, use_container_width=True)
 
-# Sayfanın sonunda açıklamalar
+
 st.markdown("""
     #### Dashboard Özeti:
     - **Gelir Kategorilere Göre**: Bu grafik, her bir kategori için toplam geliri gösteriyor.
@@ -115,7 +115,7 @@ st.markdown("""
     - **Gelir Aralığı Seçimi**: Slider ile belirlediğiniz gelir aralığındaki verileri filtreleyebilir ve bu aralıkta yer alan gelirleri gösterebilirsiniz.
 """)
 
-# Estetik Stil
+
 st.markdown("""
     <style>
         .stApp {
